@@ -1,0 +1,39 @@
+
+Install julia with instructions given here:
+
+https://julialang.org/downloads/
+
+
+then you open command line interface and type "julia",
+
+then you can get all libraries installed by using the following command in the julia mode:
+
+using Pkg; Pkg.add(["ITensors", "ITensorMPS", "BenchmarkTools", "Plots", "LinearAlgebra", "Polynomials", "Dates", "LsqFit", "FFTW", "JLD2", "Distributions", "MKL"])
+
+or individually:
+using Pkg; Pkg.add("MKL")
+
+When using command line on linux you can escape julia mode by "ctrl"+"D"
+
+To check if MKL is used:
+
+println(BLAS.get_config())
+
+It might be needed to install intelOneAPI for MKL,
+
+https://www.intel.com/content/www/us/en/developer/tools/oneapi/onemkl-download.html
+
+
+
+To make sure MKL is utilised I am also using
+
+export MKL_NUM_THREADS=$(nproc);export MKL_DYNAMIC=FALSE
+
+it can also be changed in the default settings of the system.
+
+To make sure julia runs with 16 cores:
+
+julia -t 16 --compile=all name.jl
+
+on linux/mac you can check core utilisation with "htop"
+on windows just regular task manager or btop4win or pstop
